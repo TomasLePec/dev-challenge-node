@@ -7,12 +7,10 @@ import { dbConnection } from "./databases";
 
 class App {
   public app: express.Application;
-  public env: string;
   public port: string | number;
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.env = 'development';
     this.port = 3001;
     this.connectToDatabase();
     this.initializeMiddlewares();
@@ -29,7 +27,6 @@ class App {
   }
 
   private connectToDatabase() {
-    console.log(dbConnection.url)
     try {
       connect(dbConnection.url, {});
     } catch (err) {
