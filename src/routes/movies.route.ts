@@ -13,7 +13,7 @@ class MoviesRoute implements Routes {
 
   private initializeRoutes() {
     this.router.get(`${this.path}/`, this.moviesController.getMovies);
-
+    this.router.get(`${this.path}/:director`, this.moviesController.getMoviesByDirector);
   }
 }
 
