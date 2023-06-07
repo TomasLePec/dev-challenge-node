@@ -6,16 +6,20 @@ const movieSchema: Schema = new Schema({
     type: String,
     require: true,
   },
-  gender: {
-    type: String,
+  director: {
+    type: Schema.Types.ObjectId,
+    ref: 'directors',
     require: true,
   },
-  director: {
-    type: String,
-    require: true,
-  }
+  cast: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'actors',
+      require: true,
+    }
+  ]
 });
 
-const movieModel = model<IMovie & Document>('User', movieSchema);
+const movieModel = model<IMovie & Document>('movies', movieSchema);
 
 export default movieModel;

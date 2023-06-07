@@ -12,6 +12,16 @@ class MoviesController {
       next(err)
     }
   };
+
+  public getMoviesByDirector = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const director = req.params.director;
+      const movies = await this.moviesService.getMoviesByDirector(director);
+      res.status(200).json({data: movies, message: `All ${director} movies`})
+    } catch (err) {
+      next(err)
+    }
+  };
 }
 
 export default MoviesController;

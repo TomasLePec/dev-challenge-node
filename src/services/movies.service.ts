@@ -11,6 +11,15 @@ class moviesService {
       console.log(err)
     }
   }
+
+  public async getMoviesByDirector(director: string) {
+    try {
+      const movies = await this.movies.find({director: director})
+      return movies;
+    } catch (err) {
+      console.log(err)
+    }
+  }
 };
 
 export default moviesService;
