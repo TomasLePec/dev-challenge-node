@@ -34,6 +34,17 @@ class DirectorsController {
       next(err)
     }
   };
+
+  public updateDirector = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id as unknown as Schema.Types.ObjectId
+      const data: IDirector = req.body;
+      const directors = await this.directorsService.updateDirector(id,data);
+      res.status(201).json({data: directors, message: 'Update'})
+    } catch (err) {
+      next(err)
+    }
+  };
 }
 
 export default DirectorsController;

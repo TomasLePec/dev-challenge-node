@@ -1,7 +1,7 @@
 import { model, Schema, Document } from 'mongoose';
 import { IMovie } from '../interfaces/movies.interface';
 
-const movieSchema: Schema = new Schema({
+export const movieSchema: Schema = new Schema({
   title: {
     type: String,
     require: true,

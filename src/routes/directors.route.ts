@@ -15,6 +15,7 @@ class DirectorsRoute implements Routes {
     this.router.get(`${this.path}/`, this.directorController.getDirectors);
     this.router.get(`${this.path}/:id`, this.directorController.getDirectorById)
     this.router.post(`${this.path}/`, this.directorController.createDirector);
+    this.router.put(`${this.path}/:id`, this.directorController.updateDirector)
   }
 }
 
