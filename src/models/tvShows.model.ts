@@ -40,6 +40,6 @@ const tvShowSchema: Schema = new Schema({
   seasons: [seasonSchema],
 });
 
-const tvShowModel = model<ITVShow & Document>('tvShows', tvShowSchema);
+const tvShowModel = model<ITVShow & Document>('tvshows', tvShowSchema);
 
 export default tvShowModel;
