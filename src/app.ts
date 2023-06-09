@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import cors from 'cors';
 import express from 'express';
 import errorMiddleware from './middlewares/error.middleware';
 import { Routes } from './interfaces/routes.interface';
 import { connect } from 'mongoose';
 import { dbConnection } from './databases';
+import { PORT } from './config';
 
 class App {
   public app: express.Application;
@@ -11,7 +13,7 @@ class App {
 
   constructor(routes: Routes[]) {
     this.app = express();
-    this.port = 3001;
+    this.port = PORT || 3001;
     this.connectToDatabase();
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
