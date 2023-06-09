@@ -6,6 +6,10 @@ export const movieSchema: Schema = new Schema({
     type: String,
     require: true,
   },
+  year: {
+    type: Number,
+    require: true,
+  },
   director: {
     type: Schema.Types.ObjectId,
     ref: 'directors',
