@@ -12,9 +12,9 @@ class moviesService {
   public directors = directorModel;
   public actors = actorModel;
 
-  public async getAllMovies() {
+  public async getAllMovies(filter?: any, sort?: any) {
     try {
-      const movies = await this.movies.find();
+      const movies = await this.movies.find(filter).sort(sort);
       return movies;
     } catch (err) {
       throw err

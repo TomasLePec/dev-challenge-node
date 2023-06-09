@@ -9,7 +9,22 @@ class MoviesController {
 
   public getMovies = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const movies = await this.moviesService.getAllMovies();
+      const { title, sortBy } = req.query;
+      const filter: any = {};
+      if (title) {
+        filter.title = { $regex: title, $options: 'i' };
+      }
+      const sort: any = {};
+      if (sortBy === 'title') {
+        sort.title = 1;
+      } else if (sortBy === '-title') {
+        sort.title = -1;
+      } else if (sortBy === 'year') {
+        sort.year = 1;
+      } else if (sortBy === '-year') {
+        sort.year = -1;
+      }
+      const movies = await this.moviesService.getAllMovies(filter, sort);
       res.status(200).json({data: movies, message: 'All Movies'})
     } catch (err) {
       next(err)

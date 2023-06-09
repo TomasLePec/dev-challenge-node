@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { Routes } from "../interfaces/routes.interface";
 import MoviesController from "../controllers/movies.controller";
-import movieModel, { movieSchema } from "../models/movies.model";
-import { HttpException } from "../exceptions/HttpException";
 import authMiddleware from "../middlewares/auth.middleware";
 import validateSchemaMiddleware from "../middlewares/validateSchemas.middleware";
 import { Movie } from "../joi/movies.schema";
