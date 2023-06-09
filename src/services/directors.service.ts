@@ -11,16 +11,17 @@ class directorsService {
       const directors = await this.directors.find();
       return directors;
     } catch (err) {
-      console.log(err)
+      throw err
     }
   }
 
   public async getDirectorById(id: Schema.Types.ObjectId) {
     try {
       const director = await this.directors.findById(id);
+      if (!director) throw new HttpException(404, "Director not found")
       return director;
     } catch (err) {
-      console.log(err)
+      throw err
     }
   }
 
@@ -29,18 +30,17 @@ class directorsService {
       const director = await this.directors.create({name: name})
       return director;
     } catch (err) {
-      console.log(err)
+      throw err
     }
   }
 
   public async updateDirector(id: Schema.Types.ObjectId ,data: IDirector) {
     try {
-      if (!data) throw new HttpException(400, 'Data is Empty');
       const director = await this.directors.findByIdAndUpdate(id, data)
       if (!director) throw new HttpException(409, "Director doesn't exist");
       return director;
     } catch (err) {
-      console.log(err)
+      throw err
     }
   }
 };
