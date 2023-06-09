@@ -20,8 +20,8 @@ export const movieSchema: Schema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'actors',
       require: true,
-    }
-  ]
+    },
+  ],
 });
 
 const movieModel = model<IMovie & Document>('movies', movieSchema);

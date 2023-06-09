@@ -8,33 +8,33 @@ const episodeSchema = new Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   actors: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'actors'
-    }
-  ]
+      ref: 'actors',
+    },
+  ],
 });
 
 const seasonSchema = new Schema({
   number: {
     type: Number,
-    required: true
+    required: true,
   },
-  episodes: [episodeSchema]
+  episodes: [episodeSchema],
 });
 
 const tvShowSchema: Schema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   director: {
     type: Schema.Types.ObjectId,
     ref: 'directors',
-    required: true
+    required: true,
   },
   seasons: [seasonSchema],
 });

@@ -1,11 +1,10 @@
 import { model, Schema, Document } from 'mongoose';
-import { IMovie } from '../interfaces/movies.interface';
 import { IActor } from '../interfaces/actors.interface';
 
 const actorSchema: Schema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
 });
 
