@@ -39,7 +39,7 @@ function generateSeasons(numberOfSeasons: number, numberOfEpisodes: number, acto
 export function generateTvShows(name: string, seasons: number, episodes: number, directors: any[], actors: any[]) {
   const tvShow: ITVShow = {
     title: name,
-    director: directors[(Math.random()*directors.length)]._id as unknown as Schema.Types.ObjectId,
+    director: directors[Math.ceil(Math.random()*directors.length - 1)]._id as unknown as Schema.Types.ObjectId,
     seasons: generateSeasons(seasons, episodes, actors)
   }
   return tvShow;

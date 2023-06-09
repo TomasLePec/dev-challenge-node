@@ -16,9 +16,10 @@ class MoviesController {
     }
   };
 
-  public getMovieById = async (req: Request, res: Response, next: NextFunction) => {
+  public getMovieById = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
     try {
-      const id = req.params.id as unknown as Schema.Types.ObjectId;
+      const id: Schema.Types.ObjectId = req.params.id;
+      if (!id) throw new HttpException(400, "No id provided")
       const movie = await this.moviesService.getMovieById(id);
       res.status(200).json({data: movie, message: `Movie`})
     } catch (err) {
@@ -29,6 +30,7 @@ class MoviesController {
   public createMovie = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data: IMovie = req.body;
+      if (!data) throw new HttpException(400, "data is empty")
       const movie = await this.moviesService.createMovie(data);
       res.status(200).json({data: movie, message: `Movie`})
     } catch (err) {
@@ -36,10 +38,12 @@ class MoviesController {
     }
   };
 
-  public updateMovie = async (req: Request, res: Response, next: NextFunction) => {
+  public updateMovie = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
     try {
       const data: IMovie = req.body;
-      const id = req.params.id as unknown as Schema.Types.ObjectId;
+      if (!data) throw new HttpException(400, "data is empty")
+      const id: Schema.Types.ObjectId = req.params.id;
+      if (!id) throw new HttpException(400, "No id provided")
       const movie = await this.moviesService.updateMovie(id,data);
       res.status(200).json({data: movie, message: `Movie`})
     } catch (err) {
@@ -47,9 +51,10 @@ class MoviesController {
     }
   };
 
-  public deleteMovie = async (req: Request, res: Response, next: NextFunction) => {
+  public deleteMovie = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
     try {
-      const id = req.params.id as unknown as Schema.Types.ObjectId;
+      const id: Schema.Types.ObjectId = req.params.id;
+      if (!id) throw new HttpException(400, "No id provided")
       const movie = await this.moviesService.deleteMovie(id);
       res.status(200).json({ data: movie, message: 'Movie deleted' });
     } catch (err) {

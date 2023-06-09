@@ -1,5 +1,4 @@
 import { model, Schema, Document } from 'mongoose';
-import { IMovie } from '../interfaces/movies.interface';
 import { ITVShow } from '../interfaces/tvShows.interface';
 
 const episodeSchema = new Schema({

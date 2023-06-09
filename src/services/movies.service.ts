@@ -24,7 +24,7 @@ class moviesService {
   public async getMovieById(id: Schema.Types.ObjectId) {
     try {
       const movie = await this.movies.findById(id).populate('director').populate('cast');
-      if (!movie) throw new HttpException(409, "The ID not belongs to any movie")
+      if (!movie) throw new HttpException(409, "Movie doesn't exist")
       return movie;
     } catch (err) {
       throw err
@@ -33,7 +33,6 @@ class moviesService {
 
   public async createMovie(data: IMovie) {
     try {
-      if (!data) throw new HttpException(400, 'Data is Empty')
       const directorId = data.director as Schema.Types.ObjectId;
       const directorExist = await new directorsService().getDirectorById(directorId) // Check if the Director exists.
       if (!directorExist) throw new HttpException(422, "The director does not exist");
@@ -48,7 +47,6 @@ class moviesService {
 
   public async updateMovie(id: Schema.Types.ObjectId, data: IMovie) {
     try {
-      if (!data) throw new HttpException(400, 'Data is Empty');
       const directorId = data.director as Schema.Types.ObjectId;
       if (data.director) {
         const directorExist = await new directorsService().getDirectorById(directorId) // Check if the Director exists.

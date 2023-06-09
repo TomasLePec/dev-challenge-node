@@ -67,7 +67,7 @@ class tvShowsService {
           }
         }
       ]);
-      if (!tvShow) throw new HttpException(409, "The ID not belongs to any tvShow")
+      if (!tvShow) throw new HttpException(400, "TV Show not found")
       return tvShow;
     } catch (err) {
       throw err
@@ -151,6 +151,17 @@ class tvShowsService {
       const directors = await this.directors.find();
       const generateTVShow = generateTvShows(name, seasons, episodes, directors, actors);
       const createTVShow = await this.tvShows.create(generateTVShow);
+      return createTVShow;
+    } catch (err) {
+      throw err
+    }
+  }
+
+  public async deleteTVShow(id: Schema.Types.ObjectId) {
+    try {
+      const deletedShow = await this.tvShows.findByIdAndDelete(id);
+      if (!deletedShow) throw new HttpException(400, "TVShow not found");
+      return deletedShow
     } catch (err) {
       throw err
     }
