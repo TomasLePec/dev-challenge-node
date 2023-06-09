@@ -1,11 +1,13 @@
-import { Response, Request, NextFunction } from "express";
-import moviesService from "../services/movies.service";
-import { Schema } from "mongoose";
-import { IMovie } from "../interfaces/movies.interface";
-import { HttpException } from "../exceptions/HttpException";
+import { Response, Request, NextFunction } from 'express';
+import moviesService from '../services/movies.service';
+import { Schema } from 'mongoose';
+import { IMovie } from '../interfaces/movies.interface';
+import { HttpException } from '../exceptions/HttpException';
+import { success } from '../success/constants';
+import { errors } from '../errors/constants';
 
 class MoviesController {
-  public moviesService = new moviesService()
+  public moviesService = new moviesService();
 
   public getMovies = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -25,55 +27,67 @@ class MoviesController {
         sort.year = -1;
       }
       const movies = await this.moviesService.getAllMovies(filter, sort);
-      res.status(200).json({data: movies, message: 'All Movies'})
+      res.status(success.SUCCESS_GET).json({ data: movies, message: 'All Movies' });
     } catch (err) {
-      next(err)
+      next(err);
     }
   };
 
-  public getMovieById = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
+  public getMovieById = async (
+    req: Request<{ id: Schema.Types.ObjectId }>,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       const id: Schema.Types.ObjectId = req.params.id;
-      if (!id) throw new HttpException(400, "No id provided")
+      if (!id) throw new HttpException(errors.MISSING_ID.httpCpde, errors.MISSING_ID.message);
       const movie = await this.moviesService.getMovieById(id);
-      res.status(200).json({data: movie, message: `Movie`})
+      res.status(success.SUCCESS_GET).json({ data: movie, message: `Movie` });
     } catch (err) {
-      next(err)
+      next(err);
     }
   };
 
   public createMovie = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data: IMovie = req.body;
-      if (!data) throw new HttpException(400, "data is empty")
+      if (!data) throw new HttpException(errors.EMPTY_DATA.httpCode, errors.EMPTY_DATA.message);
       const movie = await this.moviesService.createMovie(data);
-      res.status(200).json({data: movie, message: `Movie`})
+      res.status(success.SUCCESS_POST).json({ data: movie, message: `Movie` });
     } catch (err) {
-      next(err)
+      next(err);
     }
   };
 
-  public updateMovie = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
+  public updateMovie = async (
+    req: Request<{ id: Schema.Types.ObjectId }>,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       const data: IMovie = req.body;
-      if (!data) throw new HttpException(400, "data is empty")
+      if (!data) throw new HttpException(errors.EMPTY_DATA.httpCode, errors.EMPTY_DATA.message);
       const id: Schema.Types.ObjectId = req.params.id;
-      if (!id) throw new HttpException(400, "No id provided")
-      const movie = await this.moviesService.updateMovie(id,data);
-      res.status(200).json({data: movie, message: `Movie`})
+      if (!id) throw new HttpException(errors.MISSING_ID.httpCpde, errors.MISSING_ID.message);
+      const movie = await this.moviesService.updateMovie(id, data);
+      res.status(success.SUCCESS_PUT).json({ data: movie, message: `Movie` });
     } catch (err) {
-      next(err)
+      next(err);
     }
   };
 
-  public deleteMovie = async (req: Request<{id: Schema.Types.ObjectId}>, res: Response, next: NextFunction) => {
+  public deleteMovie = async (
+    req: Request<{ id: Schema.Types.ObjectId }>,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
       const id: Schema.Types.ObjectId = req.params.id;
-      if (!id) throw new HttpException(400, "No id provided")
+      if (!id) throw new HttpException(errors.MISSING_ID.httpCpde, errors.MISSING_ID.message);
       const movie = await this.moviesService.deleteMovie(id);
-      res.status(200).json({ data: movie, message: 'Movie deleted' });
+      res.status(success.SUCCESS_DELETE).json({ data: movie, message: 'Movie deleted' });
     } catch (err) {
-      next(err)
+      next(err);
     }
   };
 }

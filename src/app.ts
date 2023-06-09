@@ -1,9 +1,9 @@
-import cors from "cors";
-import express from "express"
-import errorMiddleware from "./middlewares/error.middleware";
-import { Routes } from "./interfaces/routes.interface";
-import { connect, set } from "mongoose";
-import { dbConnection } from "./databases";
+import cors from 'cors';
+import express from 'express';
+import errorMiddleware from './middlewares/error.middleware';
+import { Routes } from './interfaces/routes.interface';
+import { connect } from 'mongoose';
+import { dbConnection } from './databases';
 
 class App {
   public app: express.Application;
@@ -19,7 +19,9 @@ class App {
   }
 
   public listen() {
-    this.app.listen(this.port, () => {console.log(`App listening on the port ${this.port}`)});
+    this.app.listen(this.port, () => {
+      console.log(`App listening on the port ${this.port}`);
+    });
   }
 
   public getServer() {
@@ -30,7 +32,7 @@ class App {
     try {
       connect(dbConnection.url, {});
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -41,7 +43,7 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
-    routes.forEach(route => {
+    routes.forEach((route) => {
       this.app.use('/', route.router);
     });
   }

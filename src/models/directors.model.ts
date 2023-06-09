@@ -4,7 +4,7 @@ import { IDirector } from '../interfaces/directors.interface';
 const directorSchema: Schema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
 });
 

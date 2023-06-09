@@ -1,6 +1,6 @@
-import { Schema } from "mongoose";
-import { IDirector } from "./directors.interface";
-import { IActor } from "./actors.interface";
+import { Schema } from 'mongoose';
+import { IDirector } from './directors.interface';
+import { IActor } from './actors.interface';
 
 export interface Episode {
   number: number;

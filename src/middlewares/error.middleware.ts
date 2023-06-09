@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from '../exceptions/HttpException';
 
@@ -9,8 +10,8 @@ const errorMiddleware = (error: HttpException, req: Request, res: Response, next
     console.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}`);
     console.error(message);
     res.status(status).json({ message });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 

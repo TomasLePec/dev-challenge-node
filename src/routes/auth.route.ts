@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { Routes } from "../interfaces/routes.interface";
-import authMiddleware from "../middlewares/auth.middleware";
-import AuthController from "../controllers/auth.controller";
-import validateMiddleware from "../middlewares/validate.middleware";
+import { Router } from 'express';
+import { Routes } from '../interfaces/routes.interface';
+import authMiddleware from '../middlewares/auth.middleware';
+import AuthController from '../controllers/auth.controller';
+import validateMiddleware from '../middlewares/validate.middleware';
 
 class AuthRoute implements Routes {
   public path = '/auth';
@@ -14,8 +14,8 @@ class AuthRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}/generate`,validateMiddleware, this.authController.generate);
-    this.router.post(`${this.path}/refresh`, authMiddleware, this.authController.refreshToken)
+    this.router.post(`${this.path}/generate`, validateMiddleware, this.authController.generate);
+    this.router.post(`${this.path}/refresh`, authMiddleware, this.authController.refreshToken);
   }
 }
 
